@@ -10,6 +10,13 @@ class Organization(models.Model):
     country = models.CharField(verbose_name='Страна', max_length=255)
     city = models.CharField(verbose_name='Город', max_length=255)
 
+    class Meta:
+        verbose_name = 'Фирма'
+        verbose_name_plural = 'Фирмы'
+
+    def __str__(self):
+        return self.name
+
 
 class Door(models.Model):
     """Дверь"""
@@ -24,3 +31,10 @@ class Door(models.Model):
         related_name='doors',
         on_delete=models.CASCADE,
     )
+
+    class Meta:
+        verbose_name = 'Дверь'
+        verbose_name_plural = 'Двери'
+
+    def __str__(self):
+        return self.name

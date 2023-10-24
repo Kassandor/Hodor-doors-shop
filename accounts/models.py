@@ -12,8 +12,14 @@ class Basket(models.Model):
         related_name='doors',
         related_query_name='door',
         blank=True,
-        null=True,
     )
+
+    class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзины'
+
+    def __str__(self):
+        return f'Корзина пользователя {self.user}'
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -55,5 +61,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         ),
     )
     basket = models.OneToOneField(
-        Basket, on_delete=models.SET_NULL, related_name='user'
+        Basket, on_delete=models.PROTECT, related_name='user'
     )
+
+    EMAIL_FIELD = 'email'
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name']
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
+    def __str__(self):
+        return f'({self.email}), {self.first_name, self.last_name if self.last_name else self.first_name}'
