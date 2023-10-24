@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from accounts.validators import phone_validator, name_validator
+from accounts.mixins import UserRegistrationMixin
 from products.models import Door
 
 
@@ -22,7 +23,7 @@ class Basket(models.Model):
         return f'Корзина пользователя {self.user}'
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
     """Пользователь"""
 
     first_name = models.CharField(
@@ -64,7 +65,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         Basket, on_delete=models.PROTECT, related_name='user'
     )
 
-    EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name']
 
@@ -74,3 +74,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f'({self.email}), {self.first_name, self.last_name if self.last_name else self.first_name}'
+
+    def get_username(self):
+        return self.EMAIL_FIELD

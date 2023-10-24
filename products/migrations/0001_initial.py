@@ -5,20 +5,39 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Organization',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=1000, unique=True, verbose_name='Наименование')),
-                ('country', models.CharField(max_length=255, verbose_name='Страна')),
-                ('city', models.CharField(max_length=255, verbose_name='Город')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'name',
+                    models.CharField(
+                        max_length=1000,
+                        unique=True,
+                        verbose_name='Наименование',
+                    ),
+                ),
+                (
+                    'country',
+                    models.CharField(max_length=255, verbose_name='Страна'),
+                ),
+                (
+                    'city',
+                    models.CharField(max_length=255, verbose_name='Город'),
+                ),
             ],
             options={
                 'verbose_name': 'Фирма',
@@ -28,10 +47,33 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Door',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, unique=True, verbose_name='Наименование')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'name',
+                    models.CharField(
+                        max_length=255,
+                        unique=True,
+                        verbose_name='Наименование',
+                    ),
+                ),
                 ('price', models.IntegerField(verbose_name='Цена')),
-                ('organization', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='doors', to='products.organization', verbose_name='Фирма')),
+                (
+                    'organization',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='doors',
+                        to='products.organization',
+                        verbose_name='Фирма',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Дверь',
