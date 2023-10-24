@@ -1,3 +1,16 @@
 from django.contrib import admin
+from accounts.models import User, Basket
 
-# Register your models here.
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    """Админка: Пользователь"""
+
+    pass
+
+
+@admin.register(Basket)
+class BasketAdmin(admin.ModelAdmin):
+    """Админка: Корзина"""
+
+    pass

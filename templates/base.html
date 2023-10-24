@@ -1,13 +1,19 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
     <script src="{% static 'bootstrap.min.js' %}"></script>
     <title>Title</title>
   </head>
-  <body>
+  <body class="bg-light d-flex flex-column h-100">
+    <header class="bg-dark px-5 py-3 text-light sticky-top">Header</header>
+    <section class="flex-grow-1 p-2">
+      Content
+    </section>
+    <footer class="bg-dark px-5 py-3 text-light text-center">Footer</footer>
   </body>
 </html>
