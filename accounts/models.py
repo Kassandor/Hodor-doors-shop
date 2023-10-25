@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from django.utils import timezone
+from accounts.managers import UserManager
 from accounts.validators import phone_validator, name_validator
 from accounts.mixins import UserRegistrationMixin
 from products.models import Door
@@ -13,6 +15,7 @@ class Basket(models.Model):
         related_name='doors',
         related_query_name='door',
         blank=True,
+        null=True,
     )
 
     class Meta:
@@ -54,6 +57,10 @@ class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
         help_text='Не обязательно',
         validators=[phone_validator],
     )
+    basket = models.OneToOneField(
+        Basket, on_delete=models.PROTECT, related_name='user', null=True
+    )
+    is_staff = models.BooleanField("Администратор", default=False)
     is_active = models.BooleanField(
         verbose_name='Активен',
         default=False,
@@ -61,19 +68,26 @@ class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
             'Активен ли пользователь (пройдена ли активация через email)'
         ),
     )
-    basket = models.OneToOneField(
-        Basket, on_delete=models.PROTECT, related_name='user'
-    )
+    date_joined = models.DateTimeField("Когда присоединился", default=timezone.now)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name']
+
+    objects = UserManager()
 
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
     def __str__(self):
-        return f'({self.email}), {self.first_name, self.last_name if self.last_name else self.first_name}'
+        return f'({self.email}), {self.first_name}'
 
     def get_username(self):
         return self.EMAIL_FIELD
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # Создаём новую корзину
+            new_basket = Basket.objects.create()
+            self.basket = new_basket
+        super(User, self).save(*args, **kwargs)
