@@ -7,7 +7,6 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('products', '0001_initial'),
         ('accounts', '0001_initial'),
@@ -33,11 +32,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='basket',
             name='doors',
-            field=models.ManyToManyField(blank=True, null=True, related_name='doors', related_query_name='door', to='products.door'),
+            field=models.ManyToManyField(
+                blank=True, null=True, related_name='doors', related_query_name='door', to='products.door'
+            ),
         ),
         migrations.AlterField(
             model_name='user',
             name='basket',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='user', to='accounts.basket'),
+            field=models.OneToOneField(
+                null=True, on_delete=django.db.models.deletion.PROTECT, related_name='user', to='accounts.basket'
+            ),
         ),
     ]

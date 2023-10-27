@@ -31,14 +31,11 @@ class UserRegistrationMixin(object):
             'user': self,
             'settings': settings,
             'code': verification_code,
-            'link_valid_until': datetime.today()
-            + timedelta(days=settings.VERIFICATION_CODE_EXPIRED),
+            'link_valid_until': datetime.today() + timedelta(days=settings.VERIFICATION_CODE_EXPIRED),
         }
 
         msg = EmailMessage(
-            subject=render_to_string(
-                'auth/mail/verification_subject.txt', context
-            ),
+            subject=render_to_string('auth/mail/verification_subject.txt', context),
             body=render_to_string('auth/mail/verification_body.html', context),
             to=[self.get_email()],
         )
@@ -51,14 +48,10 @@ class UserRegistrationMixin(object):
             UserModel = get_user_model()
             signer = TimestampSigner()
             try:
-                max_age = timedelta(
-                    days=settings.VERIFICATION_CODE_EXPIRED
-                ).total_seconds()
+                max_age = timedelta(days=settings.VERIFICATION_CODE_EXPIRED).total_seconds()
                 signature = b64_decode(force_bytes(code)).decode('utf-8')
                 username = signer.unsign(signature, max_age=max_age)
-                user = UserModel.objects.get(
-                    **{UserModel.USERNAME_FIELD: username, 'is_active': False}
-                )
+                user = UserModel.objects.get(**{UserModel.USERNAME_FIELD: username, 'is_active': False})
                 user.is_active = True
                 user.save()
                 return True, 'Ваша учетная запись успешно активирована.'

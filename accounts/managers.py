@@ -2,6 +2,7 @@ from django.contrib.auth.models import UserManager as DjangoUserManager
 from django.db import models
 from django.utils import timezone
 
+
 class UserQueryset(models.QuerySet):
     """Кверисет: Пользователь"""
 
@@ -46,6 +47,4 @@ class UserManager(DjangoUserManager):
         return user
 
     def create_user(self, email=None, password=None, **extra_fields):
-        return super(UserManager, self).create_user(
-            email, email, password, **extra_fields
-        )
+        return super(UserManager, self).create_user(email, email, password, **extra_fields)

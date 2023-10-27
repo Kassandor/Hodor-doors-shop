@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from accounts.managers import UserManager
-from accounts.validators import phone_validator, name_validator
+from utils.validators import name_validator, phone_validator
 from accounts.mixins import UserRegistrationMixin
 from products.models import Door
 
@@ -29,9 +29,7 @@ class Basket(models.Model):
 class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
     """Пользователь"""
 
-    first_name = models.CharField(
-        verbose_name='Имя', max_length=255, validators=[name_validator]
-    )
+    first_name = models.CharField(verbose_name='Имя', max_length=255, validators=[name_validator])
     last_name = models.CharField(
         verbose_name='Фамилия',
         max_length=255,
@@ -44,10 +42,7 @@ class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
         max_length=255,
         unique=True,
         db_index=True,
-        error_messages={
-            'unique': 'Пользователь с таким адресом электронной '
-            'почты уже зарегистрирован.'
-        },
+        error_messages={'unique': 'Пользователь с таким адресом электронной ' 'почты уже зарегистрирован.'},
     )
     phone = models.CharField(
         verbose_name='Телефон',
@@ -57,16 +52,12 @@ class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
         help_text='Не обязательно',
         validators=[phone_validator],
     )
-    basket = models.OneToOneField(
-        Basket, on_delete=models.PROTECT, related_name='user', null=True
-    )
+    basket = models.OneToOneField(Basket, on_delete=models.PROTECT, related_name='user', null=True)
     is_staff = models.BooleanField("Администратор", default=False)
     is_active = models.BooleanField(
         verbose_name='Активен',
         default=False,
-        help_text=(
-            'Активен ли пользователь (пройдена ли активация через email)'
-        ),
+        help_text=('Активен ли пользователь (пройдена ли активация через email)'),
     )
     date_joined = models.DateTimeField("Когда присоединился", default=timezone.now)
 
