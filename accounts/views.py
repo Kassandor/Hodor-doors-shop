@@ -12,10 +12,6 @@ from accounts.forms import SignupForm
 from shop import settings
 
 
-def index(request):
-    return render(request, "base.html")
-
-
 class SignupView(FormView):
     """Регистрация"""
 
