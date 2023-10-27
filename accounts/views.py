@@ -1,11 +1,14 @@
 from django.db.transaction import atomic
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView
+from django.contrib import messages
+from django.conf import settings as django_settings
+from accounts.forms import SignupForm
 from shop import settings
 
 
@@ -31,3 +34,12 @@ class SignupView(FormView):
         user = form.save()
         user.send_verification_mail()
         return super(SignupView, self).form_valid(form)
+
+
+def signup_done(request):
+    return render(request, 'auth/signup_done.html')
+
+def verify(request, code):
+    activated, message = settings.UserModel.verify_by_code(code)
+    messages.add_message(request, (messages.constants.ERROR, messages.constants.SUCCESS)[activated], message)
+    return redirect(django_settings.LOGIN_URL)

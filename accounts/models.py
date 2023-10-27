@@ -57,7 +57,7 @@ class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
     is_active = models.BooleanField(
         verbose_name='Активен',
         default=False,
-        help_text=('Активен ли пользователь (пройдена ли активация через email)'),
+        help_text='Активен ли пользователь (пройдена ли активация через email)',
     )
     date_joined = models.DateTimeField("Когда присоединился", default=timezone.now)
 

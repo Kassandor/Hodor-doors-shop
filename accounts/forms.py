@@ -1,17 +1,34 @@
 from django import forms
-from shop import settings
-from utils.fields import PasswordField
+from django.contrib.auth import password_validation
+from accounts.models import User
 
 
 class SignupForm(forms.ModelForm):
+    """Форма: Регистрация пользователя"""
+
     error_messages = {'password_mismatch': 'Пароли не совпадают. Повторите попытку.'}
 
-    password1 = PasswordField(label='Пароль')
-    password2 = PasswordField(label='Введите пароль еще раз')
+    password1 = forms.CharField(
+        label='Пароль',
+        strip=False,
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        help_text=password_validation.password_validators_help_text_html(),
+    )
+    password2 = forms.CharField(
+        label='Подтверждение пароля',
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        strip=False,
+        help_text='Enter the same password as before, for verification',
+    )
 
     class Meta:
-        model = settings.UserModel
-        fields = (settings.UserModel.USERNAME_FIELD,)
+        model = User
+        fields = (
+            User.USERNAME_FIELD,
+            'first_name',
+            'last_name',
+            'phone',
+        )
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -27,12 +44,8 @@ class SignupForm(forms.ModelForm):
             user.save()
         return user
 
-
-def clean_username(self):
-    username = self.cleaned_data.get(settings.UserModel.USERNAME_FIELD)
-    if username:
-        username = username.lower()
-    return username
-
-
-setattr(SignupForm, 'clean_%s' % settings.UserModel.USERNAME_FIELD, clean_username)
+    def clean_username(self):
+        username = self.cleaned_data.get(User.USERNAME_FIELD)
+        if username:
+            username = username.lower()
+        return username
