@@ -86,9 +86,7 @@ class UserAuthenticationForm(AuthenticationForm):
             # подменяем ошибки, чтобы они были привязаны к полю
             if e.code == 'invalid_login':
                 raise forms.ValidationError(
-                    {
-                        'password': self.error_messages['invalid_login']
-                    },
+                    {'password': self.error_messages['invalid_login']},
                     code=e.code,
                 )
             else:

@@ -46,6 +46,9 @@ VERIFICATION_CODE_EXPIRED = 1
 # USER SETTINGS
 AUTH_USER_MODEL = 'accounts.User'
 UserModel = AUTH_USER_MODEL
+LOGOUT_REDIRECT_URL = 'shop:index'
+LOGIN_URL = 'accounts:profile'
+SIGNUP_DONE_URL = 'accounts:signup-done'
 
 # Application definition
 
@@ -56,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'shop',
     'utils',
     'accounts',
     'products',
@@ -123,9 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-    {
-      'NAME': 'utils.validators.PasswordValidator'
-    },
+    {'NAME': 'utils.validators.PasswordValidator'},
 ]
 
 
