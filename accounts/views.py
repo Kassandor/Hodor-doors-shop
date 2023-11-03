@@ -1,3 +1,4 @@
+from django.contrib.auth.views import LoginView
 from django.db.transaction import atomic
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -8,7 +9,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView
 from django.contrib import messages
 from django.conf import settings as django_settings
-from accounts.forms import SignupForm
+from accounts.forms import SignupForm, UserAuthenticationForm
 from shop import settings
 
 
@@ -39,3 +40,11 @@ def verify(request, code):
     activated, message = settings.UserModel.verify_by_code(code)
     messages.add_message(request, (messages.constants.ERROR, messages.constants.SUCCESS)[activated], message)
     return redirect(django_settings.LOGIN_URL)
+
+
+class UserLoginView(LoginView):
+    """Аутентификация"""
+    template_name = 'auth/login.html'
+    form_class = UserAuthenticationForm
+    # success_url = reverse_lazy(#)
+    redirect_authenticated_user = True

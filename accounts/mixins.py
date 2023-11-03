@@ -14,7 +14,9 @@ from django.utils.encoding import force_bytes
 from shop import settings
 
 
-class UserRegistrationMixin(object):
+class UserRegistrationMixin:
+    """Миксин с функционалом для регистрации пользователя"""
+
     EMAIL_FIELD = 'email'
 
     def get_email(self):

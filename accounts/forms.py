@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth import password_validation
+from django.contrib.auth.forms import AuthenticationForm
+from shop.settings import SUPPORT_EMAIL
 from accounts.models import User
 
 
@@ -49,3 +51,45 @@ class SignupForm(forms.ModelForm):
         if username:
             username = username.lower()
         return username
+
+
+class UserAuthenticationForm(AuthenticationForm):
+    """Форма: Аутентификация пользователя"""
+
+    error_messages = {
+        'invalid_login': 'Неверный пароль',
+        'inactive': f'Пользователю запрещен доступ в систему, обратитесь в техническую поддержку: ',
+    }
+
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        try:
+            super().clean()
+            if not self.errors:
+                return self.cleaned_data
+        except forms.ValidationError as e:
+            # Если пользователя не существует
+            if username:
+                try:
+                    user = User.objects.get(username=username)
+                except User.DoesNotExist:
+                    raise forms.ValidationError(
+                        {'username': 'Пользователь с таким логином не зарегистрирован'},
+                        code=e.code,
+                    )
+                else:
+                    if not user.is_active:
+                        raise forms.ValidationError(
+                            {'username': self.error_messages['inactive'] + SUPPORT_EMAIL},
+                            code=e.code,
+                        )
+            # подменяем ошибки, чтобы они были привязаны к полю
+            if e.code == 'invalid_login':
+                raise forms.ValidationError(
+                    {
+                        'password': self.error_messages['invalid_login']
+                    },
+                    code=e.code,
+                )
+            else:
+                raise e
