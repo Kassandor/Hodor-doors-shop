@@ -4,26 +4,7 @@ from django.utils import timezone
 from accounts.managers import UserManager
 from utils.validators import name_validator, phone_validator
 from accounts.mixins import UserRegistrationMixin
-from products.models import Door
-
-
-class Basket(models.Model):
-    """Корзина"""
-
-    doors = models.ManyToManyField(
-        Door,
-        related_name='doors',
-        related_query_name='door',
-        blank=True,
-        null=True,
-    )
-
-    class Meta:
-        verbose_name = 'Корзина'
-        verbose_name_plural = 'Корзины'
-
-    def __str__(self):
-        return f'Корзина пользователя {self.user}'
+from products.models import Product
 
 
 class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
@@ -52,7 +33,6 @@ class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
         help_text='Не обязательно',
         validators=[phone_validator],
     )
-    basket = models.OneToOneField(Basket, on_delete=models.PROTECT, related_name='user', null=True)
     is_staff = models.BooleanField("Администратор", default=False)
     is_active = models.BooleanField(
         verbose_name='Активен',
@@ -75,10 +55,3 @@ class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
 
     def get_username(self):
         return self.EMAIL_FIELD
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            # Создаём новую корзину
-            new_basket = Basket.objects.create()
-            self.basket = new_basket
-        super(User, self).save(*args, **kwargs)

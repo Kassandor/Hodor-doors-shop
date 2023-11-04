@@ -50,8 +50,10 @@ LOGOUT_REDIRECT_URL = 'shop:index'
 LOGIN_URL = 'accounts:profile'
 SIGNUP_DONE_URL = 'accounts:signup-done'
 
-# Application definition
+# CART
+CART_SESSION_ID = 'cart'
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -62,6 +64,7 @@ INSTALLED_APPS = [
     'shop',
     'utils',
     'accounts',
+    'cart',
     'products',
 ]
 

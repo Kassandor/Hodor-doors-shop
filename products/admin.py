@@ -1,8 +1,8 @@
 from django.contrib import admin
-from products.models import Door, Organization
+from products.models import Product, Organization
 
 
-@admin.register(Door)
+@admin.register(Product)
 class DoorAdmin(admin.ModelAdmin):
     """Админка: Дверь"""
 

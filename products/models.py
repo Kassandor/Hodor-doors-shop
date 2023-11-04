@@ -16,21 +16,21 @@ class Organization(models.Model):
         return self.name
 
 
-class Door(models.Model):
-    """Дверь"""
+class Product(models.Model):
+    """Товар"""
 
     name = models.CharField(verbose_name='Наименование', max_length=255, unique=True)
-    price = models.IntegerField(verbose_name='Цена')
+    price = models.DecimalField(verbose_name='Цена', max_digits=10, decimal_places=2)
     organization = models.ForeignKey(
         Organization,
         verbose_name='Фирма',
-        related_name='doors',
+        related_name='products',
         on_delete=models.CASCADE,
     )
 
     class Meta:
-        verbose_name = 'Дверь'
-        verbose_name_plural = 'Двери'
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
 
     def __str__(self):
         return self.name
