@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from shop.views import *
+from shop.views import index
 
 
 urlpatterns = [
@@ -9,5 +9,4 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('products/', include('products.urls')),
     path('cart/', include('cart.urls')),
-
 ]
