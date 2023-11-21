@@ -5,15 +5,28 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {#  Bootstrap styles  #}
     <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
-    <script src="{% static 'bootstrap.min.js' %}"></script>
-    <title>Title</title>
+
+    {#  Custom styles  #}
+    <link rel="stylesheet" href="{% static 'css/body.css' %}">
+    {% block title %}
+    <title>Home</title>
+    {% endblock %}
   </head>
-  <body class="bg-light d-flex flex-column h-100">
-    <header class="bg-dark px-5 py-3 text-light sticky-top">Header</header>
-    <section class="flex-grow-1 p-2">
-      Content
-    </section>
-    <footer class="bg-dark px-5 py-3 text-light text-center">Footer</footer>
+
+  <body>
+    {% include 'blocks/navbar.html' %}
+
+    <div class="main">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+
+    {#  Bootstrap script  #}
+    <script src="{% static 'bootstrap.min.js' %}"></script>
   </body>
+  <footer class="bg-dark px-5 py-3 text-light text-center fixed-bottom">All rights reserved</footer>
 </html>

@@ -1,0 +1,55 @@
+<header id="header" class="fixed-top">
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Hodor Shop</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+              aria-controls="offcanvasDarkNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+           aria-labelledby="offcanvasDarkNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                  aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.view_name == 'index' %}active{% endif %}"
+                 aria-current="page"
+                 href="{% url 'index' %}">
+                <h3>Home</h3>
+              </a>
+            </li>
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.view_name == 'cart:cart-detail' %}active{% endif %}"
+                   href="{% url 'cart:cart-detail' %}">
+                  <h3>Cart</h3>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.view_name == 'accounts:profile' %}active{% endif %}"
+                   href="{% url 'accounts:profile' %}">
+                  <h3>Profile</h3>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-danger" href="#"><h3>Sign Out</h3></a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link text-success" href="#"><h3>Sign Up</h3></a>
+              </li>
+            {% endif %}
+          </ul>
+          <form class="d-flex mt-3" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -26,7 +26,6 @@ class UserManager(DjangoUserManager):
         password,
         is_staff,
         is_superuser,
-        basket=None,
         is_active=True,
         **extra_fields,
     ):
@@ -37,7 +36,6 @@ class UserManager(DjangoUserManager):
             email=email,
             is_staff=is_staff,
             is_superuser=is_superuser,
-            basket=basket,
             is_active=is_active,
             date_joined=now,
             **extra_fields,

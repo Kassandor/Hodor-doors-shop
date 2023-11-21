@@ -9,6 +9,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, DetailView, RedirectView
 from django.contrib import messages
 from accounts.forms import SignupForm, UserAuthenticationForm
+from accounts.models import User
 from shop.settings import (
     UserModel,
     SIGNUP_DONE_URL,
@@ -78,4 +79,4 @@ class ProfileView(DetailView):
     template_name = 'accounts/profile.html'
 
     def get_object(self, queryset=None):
-        return UserModel.object.get(pk=self.request.user.id)
+        return self.request.user
