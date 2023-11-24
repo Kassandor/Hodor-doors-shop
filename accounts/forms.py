@@ -8,29 +8,36 @@ from accounts.models import User
 class SignupForm(forms.ModelForm):
     """Форма: Регистрация пользователя"""
 
-    error_messages = {'password_mismatch': 'Пароли не совпадают. Повторите попытку.'}
+    error_messages = {'password_mismatch': 'Пароли не совпадают. Повторите попытку.',
+                      'email_exists': 'Указанный email уже зарегистрирован'}
 
     password1 = forms.CharField(
         label='Пароль',
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'class': 'form-control form-control-lg'}),
         help_text=password_validation.password_validators_help_text_html(),
     )
     password2 = forms.CharField(
         label='Подтверждение пароля',
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'class': 'form-control form-control-lg'}),
         strip=False,
-        help_text='Enter the same password as before, for verification',
+        help_text='Введите пароль еще раз',
     )
 
     class Meta:
         model = User
         fields = (
-            User.USERNAME_FIELD,
+            'email',
             'first_name',
             'last_name',
             'phone',
         )
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control form-control-lg'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
+        }
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -39,9 +46,16 @@ class SignupForm(forms.ModelForm):
             raise forms.ValidationError(self.error_messages['password_mismatch'])
         return password2
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError(self.error_messages['email_exists'])
+        return email
+
     def save(self, commit=True):
         user = super(SignupForm, self).save(commit=False)
         user.set_password(self.cleaned_data['password1'])
+        user.email = self.cleaned_data.get('email')
         if commit:
             user.save()
         return user

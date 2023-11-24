@@ -1,4 +1,5 @@
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.transaction import atomic
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -33,6 +34,8 @@ class SignupView(FormView):
 
     def form_valid(self, form):
         user = form.save()
+        print(form)
+        print(user)
         user.send_verification_mail()
         return super(SignupView, self).form_valid(form)
 
@@ -63,14 +66,17 @@ class UserLoginView(LoginView):
 
     template_name = 'auth/login.html'
     form_class = UserAuthenticationForm
-    # success_url = reverse_lazy(#)
     redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('index')
 
 
 class UserLogoutView(LogoutView):
     """Выход из аккаунта"""
 
-    template_name = 'auth/logout.html'
+    def get_success_url(self):
+        return reverse_lazy('index')
 
 
 class ProfileView(DetailView):

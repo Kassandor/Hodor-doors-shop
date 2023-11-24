@@ -45,7 +45,7 @@ VALID_IMAGE_UPLOAD_EXTENSIONS = [
 # USER SETTINGS
 AUTH_USER_MODEL = 'accounts.User'
 UserModel = AUTH_USER_MODEL
-LOGOUT_REDIRECT_URL = 'shop:index'
+LOGOUT_REDIRECT_URL = 'index'
 LOGIN_URL = 'accounts:profile'
 SIGNUP_DONE_URL = 'accounts:signup-done'
 
@@ -60,11 +60,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop',
     'utils',
     'accounts',
     'cart',
     'products',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

@@ -41,6 +41,7 @@ class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
     )
     date_joined = models.DateTimeField("Когда присоединился", default=timezone.now)
 
+    EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name']
 
@@ -55,3 +56,4 @@ class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
 
     def get_username(self):
         return self.EMAIL_FIELD
+
