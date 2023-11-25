@@ -5,7 +5,6 @@ import utils.validators
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('products', '0002_product_delete_door'),
     ]
@@ -14,6 +13,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='product',
             name='img',
-            field=models.ImageField(null=True, upload_to='', validators=[utils.validators.ImageFileExtensionValidator(), utils.validators.FileMaxSizeValidator()], verbose_name='Картинка'),
+            field=models.ImageField(
+                null=True,
+                upload_to='',
+                validators=[utils.validators.ImageFileExtensionValidator(), utils.validators.FileMaxSizeValidator()],
+                verbose_name='Картинка',
+            ),
         ),
     ]

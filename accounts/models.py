@@ -56,4 +56,3 @@ class User(AbstractBaseUser, UserRegistrationMixin, PermissionsMixin):
 
     def get_username(self):
         return self.EMAIL_FIELD
-

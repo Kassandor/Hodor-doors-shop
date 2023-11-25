@@ -8,8 +8,10 @@ from accounts.models import User
 class SignupForm(forms.ModelForm):
     """Форма: Регистрация пользователя"""
 
-    error_messages = {'password_mismatch': 'Пароли не совпадают. Повторите попытку.',
-                      'email_exists': 'Указанный email уже зарегистрирован'}
+    error_messages = {
+        'password_mismatch': 'Пароли не совпадают. Повторите попытку.',
+        'email_exists': 'Указанный email уже зарегистрирован',
+    }
 
     password1 = forms.CharField(
         label='Пароль',

@@ -23,7 +23,9 @@ class Product(models.Model):
 
     name = models.CharField(verbose_name='Наименование', max_length=255, unique=True)
     price = models.DecimalField(verbose_name='Цена', max_digits=10, decimal_places=2)
-    img = models.ImageField(verbose_name='Картинка', validators=[ImageFileExtensionValidator(), FileMaxSizeValidator()], null=True)
+    img = models.ImageField(
+        verbose_name='Картинка', validators=[ImageFileExtensionValidator(), FileMaxSizeValidator()], null=True
+    )
     organization = models.ForeignKey(
         Organization,
         verbose_name='Фирма',
