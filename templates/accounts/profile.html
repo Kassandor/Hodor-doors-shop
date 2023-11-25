@@ -1,66 +1,42 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  <title>Profile {{ user.first_name }}</title>
+  Profile {{ user.first_name }}
 {% endblock %}
 
 {% block content %}
-  <div class="container py-5">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <h1 class="text-center">Profile {{ user.first_name }}</h1>
-        <div class="card mb-4">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Full Name</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ user.first_name }} {{ user.last_name|default:"" }}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Email</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ user.email }}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Phone</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ user.phone|default:"-" }}</p>
-              </div>
-            </div>
-            <hr>
-            {% if user.is_staff %}
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Role</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">Admin</p>
-                </div>
-              </div>
-            {% endif %}
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Active</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">
-                  {% if user.is_active %} Your account is active
-                  {% else %} Your account is not active
-                  {% endif %}
-                </p>
-              </div>
-            </div>
+  <div class="container">
+    <div class="profile-header text-center">
+      <h2>Профиль пользователя</h2>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label>Имя:</label>
+            <div class="border p-2">{{ user.first_name|default:"-" }}</div>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label>Фамилия:</label>
+            <div class="border p-2">{{ user.last_name|default:"-" }}</div>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label>Адрес электронной почты:</label>
+            <div class="border p-2">{{ user.email|default:"-" }}</div>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label>Телефон:</label>
+            <div class="border p-2">{{ user.phone|default:"-" }}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label>Статус активации:</label>
+            <div class="border p-2">{{ user.is_active|yesno:"Активен,Не активен" }}</div>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label>Роль:</label>
+            <div class="border p-2">{{ user.is_staff|yesno:"Администратор,Покупатель" }}</div>
           </div>
         </div>
       </div>

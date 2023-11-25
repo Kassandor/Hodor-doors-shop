@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import reverse
 
 
 def index(request):
-    return render(request, "base.html")
+    return HttpResponseRedirect(reverse('products:product_list'))

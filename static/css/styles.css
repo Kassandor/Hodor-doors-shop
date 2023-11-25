@@ -15,7 +15,7 @@ body {
 }
 
 .input_error .select2-selection {
-    border-color: #D64C4C!important;
+    border-color: #D64C4C !important;
 }
 
 .input_error .input__error {
@@ -42,4 +42,32 @@ body {
 .header-form {
     display: flex;
     margin: 0;
+}
+
+.card-custom {
+    margin-top: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-custom {
+    object-fit: cover;
+    height: auto;
+    width: 100%;
+}
+
+.card-body-custom {
+    font-size: 1.2rem;
+}
+
+.data-field {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+}
+
+.data-field label {
+    font-weight: bold;
+}
+
+.profile-header {
+    margin-bottom: 30px;
 }

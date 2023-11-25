@@ -11,7 +11,7 @@ from django.core.signing import (
 )
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
-from shop import settings
+from django.conf import settings
 
 
 class UserRegistrationMixin:

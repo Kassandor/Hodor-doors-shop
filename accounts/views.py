@@ -1,5 +1,4 @@
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.messages.views import SuccessMessageMixin
 from django.db.transaction import atomic
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -11,10 +10,7 @@ from django.views.generic import FormView, DetailView, RedirectView
 from django.contrib import messages
 from accounts.forms import SignupForm, UserAuthenticationForm
 from accounts.models import User
-from shop.settings import (
-    SIGNUP_DONE_URL,
-    LOGIN_URL,
-)
+from django.conf import settings
 
 
 class SignupView(FormView):
@@ -22,7 +18,7 @@ class SignupView(FormView):
 
     template_name = 'auth/signup.html'
     form_class = SignupForm
-    success_url = reverse_lazy(SIGNUP_DONE_URL)
+    success_url = reverse_lazy(settings.SIGNUP_DONE_URL)
 
     @method_decorator(sensitive_post_parameters('password1', 'password2'))
     @method_decorator(csrf_protect)
@@ -51,7 +47,7 @@ class Verification(RedirectView):
     def get(self, request, *args, **kwargs):
         code = kwargs.get("code")
         print(kwargs)
-        location = LOGIN_URL
+        location = settings.LOGIN_URL
         activated, message = User.verify_by_code(code)
         messages.add_message(
             request,
