@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {#  Bootstrap styles  #}
-    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
 
     {#  Custom styles  #}
-    <link rel="stylesheet" href="{% static 'css/body.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% block title %}
     <title>Home</title>
     {% endblock %}
@@ -25,8 +25,10 @@
     </div>
 
 
-    {#  Bootstrap script  #}
-    <script src="{% static 'bootstrap.min.js' %}"></script>
+    {#  Bootstrap scripts  #}
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+    {#  jquery scripts  #}
+    <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
   </body>
   <footer class="bg-dark px-5 py-3 text-light text-center fixed-bottom">All rights reserved</footer>
 </html>

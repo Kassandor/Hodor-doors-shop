@@ -1,0 +1,10 @@
+{% load fields %}
+<div class="form-group {{ item_css_class }}">
+    <div class="list-group-item-heading {{ heading_css_class }}">
+        {{ label }}
+        {% if required %}
+            <span class="required">*</span>
+        {% endif %}
+    </div>
+    {% field field icon=icon input_css_class=input_css_class type=type width=width %}
+</div>

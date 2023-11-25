@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
+{% load fields %}
 
 {% block content %}
-  <form method="POST" novalidate>
+  {% include 'fields/_form_errors.html' with errors=form.non_field_errors %}
+  <form novalidate method="post">
     {% csrf_token %}
-    <h2>Sign Up</h2>
-
-    {% for field in form %}
-      <p>
-        {% if field.errors %}
-          <ul class="errorlist">
-            {% for error in field.errors %}
-              <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
-      {{ field.label_tag }} {{ field }}
-      </p>
-
+    {% for hidden in form.hidden_fields %}
+      {{ hidden }}
     {% endfor %}
-    <input type="submit" value="Register"/>
+    <div class="container">
+      <div class="row header-form mt-2">
+        {% for field in form %}
+          <div class="col-md-12 col-xs-12 pb-3">
+            {% field_group field %}
+          </div>
+        {% endfor %}
+      </div>
+      <input type="submit" value="Register" class="btn btn-success btn btn-lg float-end"/>
+    </div>
   </form>
+
 {% endblock %}

@@ -1,0 +1,29 @@
+<div class="input {% if field.errors %}input_error{% endif %} {{ input_css_class }}">
+    {% if icon %}
+        <div class='input-group {% if type %}js-field_group-{{ type }}{% endif %} js-field_group_name-{{ field.name }}'
+             {% if width %}style="width: {{ width }}"{% endif %}>
+    {% endif %}
+
+    {{ field }}
+
+    {% if icon %}
+        <span class="input-group-btn input-group-btn_small">
+            <button class="btn btn-default" type="button">
+                <span class="glyphicon glyphicon-{{ icon }}"></span>
+            </button>
+        </span>
+        </div>
+    {% endif %}
+
+    <span class="input__error">
+        {% for error in field.errors %}
+            {{ error }}
+        {% endfor %}
+    </span>
+
+    {% if field.help_text %}
+        <span class="form-field-help">
+            {{ field.help_text|safe }}
+        </span>
+    {% endif %}
+</div>

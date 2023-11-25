@@ -1,0 +1,45 @@
+body {
+    padding-top: 56px;
+}
+
+.form-field-help {
+    color: #0f5132;
+}
+
+.input {
+    position: relative;
+}
+
+.input_error .input__input {
+    border-color: #D64C4C;
+}
+
+.input_error .select2-selection {
+    border-color: #D64C4C!important;
+}
+
+.input_error .input__error {
+    display: block;
+}
+
+.input_error .btn {
+    border-color: #D64C4C;
+}
+
+.input__error {
+    display: none;
+    position: absolute;
+    margin-top: -7px;
+    left: 5px;
+    padding: 2px;
+    background-color: #ffffff;
+    color: #D64C4C;
+    font-size: 20px;
+    line-height: 10px;
+    z-index: 3;
+}
+
+.header-form {
+    display: flex;
+    margin: 0;
+}
