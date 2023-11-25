@@ -12,7 +12,6 @@ from django.contrib import messages
 from accounts.forms import SignupForm, UserAuthenticationForm
 from accounts.models import User
 from shop.settings import (
-    UserModel,
     SIGNUP_DONE_URL,
     LOGIN_URL,
 )
@@ -51,8 +50,9 @@ class Verification(RedirectView):
 
     def get(self, request, *args, **kwargs):
         code = kwargs.get("code")
+        print(kwargs)
         location = LOGIN_URL
-        activated, message = UserModel.verify_by_code(code)
+        activated, message = User.verify_by_code(code)
         messages.add_message(
             request,
             (messages.constants.ERROR, messages.constants.SUCCESS)[activated],

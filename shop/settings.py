@@ -26,6 +26,7 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
 # EMAIL HOST SETTINGS
+SITE_NAME = os.getenv('SITE_NAME')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
@@ -46,7 +47,7 @@ VALID_IMAGE_UPLOAD_EXTENSIONS = [
 AUTH_USER_MODEL = 'accounts.User'
 UserModel = AUTH_USER_MODEL
 LOGOUT_REDIRECT_URL = 'index'
-LOGIN_URL = 'accounts:profile'
+LOGIN_URL = 'accounts:login'
 SIGNUP_DONE_URL = 'accounts:signup-done'
 
 # CART
