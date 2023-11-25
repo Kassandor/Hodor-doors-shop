@@ -16,9 +16,9 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.view_name == 'index' %}active{% endif %}"
+              <a class="nav-link {% if request.resolver_match.view_name == 'products:product_list' %}active{% endif %}"
                  aria-current="page"
-                 href="{% url 'index' %}">
+                 href="{% url 'products:product_list' %}">
                 <h3>Home</h3>
               </a>
             </li>
@@ -26,7 +26,7 @@
               <li class="nav-item">
                 <a class="nav-link {% if request.resolver_match.view_name == 'cart:cart-detail' %}active{% endif %}"
                    href="{% url 'cart:cart-detail' %}">
-                  <h3>Cart</h3>
+                  <h3>Cart{% if cart|length %} ({{ cart|length }}) {% endif %}</h3>
                 </a>
               </li>
               <li class="nav-item">
@@ -39,10 +39,10 @@
                 <a class="nav-link text-danger" href="{% url 'accounts:logout' %}"><h3>Sign Out</h3></a>
               </li>
             {% else %}
-              <li class="nav-item">
+              <li class="nav-item {% if request.resolver_match.view_name == 'accounts:login' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'accounts:login' %}"><h3>Login</h3></a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {% if request.resolver_match.view_name == 'accounts:signup' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'accounts:signup' %}"><h3>Sign Up</h3></a>
               </li>
             {% endif %}

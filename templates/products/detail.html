@@ -3,33 +3,40 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="card card-custom">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="{{ product.img.url }}" alt="Изображение двери" class="card-img card-img-custom img-fluid">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body card-body-custom">
-                                <div class="data-field">
-                                    <label for="name">Название</label>
-                                    <p id="name">{{ product.name }}</p>
-                                </div>
-                                <div class="data-field">
-                                    <label for="organization">Организация</label>
-                                    <p id="organization">{{ product.organization }}</p>
-                                </div>
-                                <div class="data-field">
-                                    <label for="price">Цена</label>
-                                    <p id="price">{{ product.price }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-custom">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="{{ product.img.url }}" alt="Изображение двери" class="card-img card-img-custom img-fluid">
             </div>
+            <div class="col-md-8">
+              <div class="card-body card-body-custom">
+                <div class="data-field">
+                  <label for="name">Название</label>
+                  <p id="name">{{ product.name }}</p>
+                </div>
+                <div class="data-field">
+                  <label for="organization">Организация</label>
+                  <p id="organization">{{ product.organization }}</p>
+                </div>
+                <div class="data-field">
+                  <label for="price">Цена</label>
+                  <p id="price">{{ product.price }}</p>
+                </div>
+                <div class="data-field">
+                  <form action="{% url 'cart:cart-add' product.id %}" method="post">
+                    {{ cart_product_form }}
+                    {% csrf_token %}
+                    <input type="submit" value="В корзину">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 {% endblock %}

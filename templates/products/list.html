@@ -16,6 +16,13 @@
               <h5 class="card-title">{{ product.name }}</h5>
               <p class="card-text">Цена: {{ product.price }} руб.</p>
               <a href="{% url 'products:product_detail' product.id %}" class="mt-auto btn btn-primary">Подробнее</a>
+              <div class="cart-form mt-2">
+                <form action="{% url 'cart:cart-add' product.id %}" method="post">
+                  {{ cart_product_form }}
+                  {% csrf_token %}
+                  <input type="submit" value="В корзину">
+                </form>
+              </div>
             </div>
             <div class="card-footer">
               <small class="text-muted">Фирма: {{ product.organization.name }}</small>

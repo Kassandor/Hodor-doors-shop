@@ -6,5 +6,5 @@ def get_product_quantity_choices(min=1, max=20):
 
 
 class CartAddProductForm(Form):
-    quantity = TypedChoiceField(choices=get_product_quantity_choices(), coerce=int)
+    quantity = TypedChoiceField(label='Количество', choices=get_product_quantity_choices(), coerce=int)
     update = BooleanField(required=False, initial=False, widget=HiddenInput)
