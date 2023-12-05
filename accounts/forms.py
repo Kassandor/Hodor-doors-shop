@@ -78,7 +78,7 @@ class UserAuthenticationForm(AuthenticationForm):
     }
 
     def clean(self):
-        username = self.cleaned_data.get('username')
+        username = self.cleaned_data.get(User.USERNAME_FIELD)
         try:
             super().clean()
             if not self.errors:
@@ -87,7 +87,7 @@ class UserAuthenticationForm(AuthenticationForm):
             # Если пользователя не существует
             if username:
                 try:
-                    user = User.objects.get(username=username)
+                    user = User.objects.get(USERNAME_FIELD=username)
                 except User.DoesNotExist:
                     raise forms.ValidationError(
                         {'username': 'Пользователь с таким логином не зарегистрирован'},

@@ -52,7 +52,9 @@ class Cart(object):
         self.save()
 
     def save(self):
-        # сохраняем товар
+        """
+        Сохранение товара
+        """
         self.session.modified = True
 
     def remove(self, product):
@@ -65,10 +67,14 @@ class Cart(object):
             self.save()
 
     def get_total_price(self):
-        # получаем общую стоимость
+        """
+        Общая стоимость товаров
+        """
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
 
     def clear(self):
-        # очищаем корзину в сессии
+        """
+        Удаление корзины из request.session
+        """
         del self.session[settings.CART_SESSION_ID]
         self.save()
