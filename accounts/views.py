@@ -29,8 +29,6 @@ class SignupView(FormView):
 
     def form_valid(self, form):
         user = form.save()
-        print(form)
-        print(user)
         user.send_verification_mail()
         return super(SignupView, self).form_valid(form)
 
@@ -46,7 +44,6 @@ class Verification(RedirectView):
 
     def get(self, request, *args, **kwargs):
         code = kwargs.get("code")
-        print(kwargs)
         location = settings.LOGIN_URL
         activated, message = User.verify_by_code(code)
         messages.add_message(
