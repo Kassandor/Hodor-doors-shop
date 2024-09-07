@@ -6,7 +6,7 @@
   <body style="font-family: Arial, sans-serif; line-height:1.6;">
     <div
       style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #eee; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);">
-      <h2 style="text-align: center; color: #333;">Добро пожаловать, {{ user.username }}!</h2>
+      <h2 style="text-align: center; color: #333;">Добро пожаловать, {{ user.first_name }} {{ user.last_name }}!</h2>
       <p>Для подтверждения вашего аккаунта, пожалуйста, перейдите по ссылке ниже:</p>
       <div style="text-align: center; margin: 40px 0;">
         <a href="http://127.0.0.1:8000/accounts/signup/verification/{{ code }}"
