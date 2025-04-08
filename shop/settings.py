@@ -33,9 +33,14 @@ DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 SUPPORT_EMAIL = os.getenv('SUPPORT_EMAIL')
 VERIFICATION_CODE_EXPIRED = 1
 
+# STATIC SETTINGS
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
 # MEDIA SETTINS
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # IMAGE SETTINGS
 MAX_IMAGE_UPLOAD_SIZE = (1024 * 1024) * 5
@@ -154,9 +159,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
